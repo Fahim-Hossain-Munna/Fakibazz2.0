@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ProfileController extends Controller
 {
@@ -65,6 +67,8 @@ class ProfileController extends Controller
 
 
     public function image_update(Request $request){
+        $manager = new ImageManager(new Driver());
+
         $request->validate([
             'image' => 'required|image',
         ]);
@@ -72,6 +76,14 @@ class ProfileController extends Controller
 
         if($request->hasFile('image')){
             $newname = auth()->id() . '-' . rand(1111,9999) . '.' . $request->file('image')->getClientOriginalExtension();
+            $image = $manager->read($request->file('image'));
+            $image->toPng()->save(base_path('public/uploads/profile/'.$newname));
+
+            User::find(auth()->id())->update([
+                'image' => $newname,
+                'updated_at' => now(),
+            ]);
+        return redirect()->route('profile.index')->with('image_update',"Image Update Successful");
         }
 
     }
