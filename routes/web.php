@@ -22,4 +22,8 @@ Route::post('/profile/image/update', [ProfileController::class, 'image_update'])
 
 Route::get('/category',[CategoryController::class,'index'])->name('kallu.mama');
 Route::post('/category/store',[CategoryController::class,'store'])->name('category.store');
+Route::get('/category/edit/{slug}',[CategoryController::class,'edit'])->name('category.edit');
+Route::post('/category/update/{slug}',[CategoryController::class,'update'])->name('category.update');
+Route::get('/category/destroy/{slug}',[CategoryController::class,'destroy'])->name('category.destroy');
+Route::post('/category/status/{id}',[CategoryController::class,'status'])->name('category.status');
 

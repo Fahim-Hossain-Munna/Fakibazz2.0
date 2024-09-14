@@ -16,7 +16,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($categories as $category)
+                      @forelse ($categories as $category)
                         <tr>
                           <td>
                             <div class="d-flex align-items-center">
@@ -35,15 +35,30 @@
                             <p class="fw-normal mb-1">{{ $category->title  }}</p>
                           </td>
                           <td>
-                            <span class="badge bg-success rounded-pill d-inline">Active</span>
+                            <form id="abubokorkharap" action="{{ route('category.status',$category->id) }}" method="POST">
+                                @csrf
+                            <div class="form-check form-switch">
+                                <input onchange="document.querySelector('#abubokorkharap').submit()" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" {{ $category->status == 'active' ? 'checked' : '' }}>
+                              </div>
+                              <form>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-link btn-sm btn-rounded">
-                              Edit
-                            </button>
+                            <a href="{{ route('category.edit',$category->slug) }}" class="btn btn-link btn-sm btn-rounded text-info">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                            <a href="{{ route('category.destroy',$category->slug) }}" class="btn btn-link btn-sm btn-rounded text-danger">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </a>
                           </td>
                         </tr>
-                      @endforeach
+
+                        @empty
+
+                            <tr>
+                                <td colspan="4" class="text-danger text-center">categories not found!!</td>
+                            </tr>
+
+                      @endforelse
                     </tbody>
                   </table>
             </div>
