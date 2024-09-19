@@ -35,12 +35,12 @@
                             <p class="fw-normal mb-1">{{ $category->title  }}</p>
                           </td>
                           <td>
-                            <form id="abubokorkharap" action="{{ route('category.status',$category->id) }}" method="POST">
+                            <form id="abubokorkharap{{ $category->id }}" action="{{ route('category.status',$category->id) }}" method="POST">
                                 @csrf
                             <div class="form-check form-switch">
-                                <input onchange="document.querySelector('#abubokorkharap').submit()" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" {{ $category->status == 'active' ? 'checked' : '' }}>
+                                <input onchange="document.querySelector('#abubokorkharap{{ $category->id }}').submit()" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" {{ $category->status == 'active' ? 'checked' : '' }}>
                               </div>
-                              <form>
+                            </form>
                           </td>
                           <td>
                             <a href="{{ route('category.edit',$category->slug) }}" class="btn btn-link btn-sm btn-rounded text-info">

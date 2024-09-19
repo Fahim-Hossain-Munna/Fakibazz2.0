@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController};
+use App\Http\Controllers\{BlogController, CategoryController, FrontendController, HomeController, ProfileController};
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -26,4 +26,9 @@ Route::get('/category/edit/{slug}',[CategoryController::class,'edit'])->name('ca
 Route::post('/category/update/{slug}',[CategoryController::class,'update'])->name('category.update');
 Route::get('/category/destroy/{slug}',[CategoryController::class,'destroy'])->name('category.destroy');
 Route::post('/category/status/{id}',[CategoryController::class,'status'])->name('category.status');
+
+
+// blog
+
+Route::resource('/blog',BlogController::class);
 
