@@ -1,14 +1,15 @@
 <?php
 
 use App\Http\Controllers\{BlogController, CategoryController, FrontendController, HomeController, ProfileController};
-
+use App\Http\Controllers\Frontend\CategoryBlogController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/',[FrontendController::class , 'index']);
+Route::get('/category/{slug}',[CategoryBlogController::class , 'show'])->name('front.category.blog');
 
 
-Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
     public function index(){
-        return view('welcome');
+        $categories = Category::where('status','active')->latest()->get();
+        return view('frontend.home.index',[
+            'categories' => $categories,
+        ]);
     }
 
-    public function kala(){
-        return view('new');
-    }
 }
